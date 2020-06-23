@@ -18,6 +18,9 @@
 ;; Common Lisp compatability
 (require 'cl-lib)
 
+
+
+
 ;; Temporary workaround for eshell bug in 24.3.1
 ;; http://zpcat.blogspot.com/2013/08/configure-eshell-mode-after-upgrade.html
 (require 'esh-mode)
@@ -30,6 +33,13 @@
       (normal-top-level-add-subdirs-to-load-path)))
 
  (server-start); start emacs in server mode
+
+;; include use-package preamble
+;; This is only needed once, near the top of the file
+(eval-when-compile
+  ;; Following line is not needed if use-package.el is in ~/.emacs.d
+  ;;(add-to-list 'load-path "")
+  (require 'use-package))
 
 
 ;; Font-face setup. Check the availability of a some default fonts, in

@@ -1,7 +1,7 @@
 #+TITLE: Local User Customizations
 #+OPTIONS: toc:nil num:nil ^:nil
 
-* Starter Kit kjhealy
+* Starter Kit lalor
 This file contains local customizations---ones that in some cases
 you will not be able to just drop in and use because, e.g., they
 involve references to particular files on my own machine. It's
@@ -20,12 +20,12 @@ To use the customizations here yourself, /you must change the name of
  loaded properly. To find the current value of these variables on your
  system, launch emacs and do =C-h-v system-name [RET]= or =C-h-v
  user-login-name [RET]=. For example, on my system =user-login-name=
- is 'kjhealy', so this file is named =kjhealy.org=, and when Emacs
- starts up with the starter kit it creates the file =kjhealy.el=.
+ is 'lalor', so this file is named =lalor.org=, and when Emacs
+ starts up with the starter kit it creates the file =lalor.el=.
  
 You will also need to change the values for the location of bibtex
  databases, pandoc and orgmode-mobile specified below, and some other
- settings. *Search for 'kjhealy' in this file* to find the paths that
+ settings. *Search for 'lalor' in this file* to find the paths that
  need to be updated. Change them as needed or delete them if you don't
  need these features. 
 
@@ -97,7 +97,7 @@ as turning off the sans-serif heading style that AucTeX defaults to.
 Bind full screen to `C-c f`.
 
 #+source: fullscreen-4
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
     (defun fullscreen (&optional f)
       (interactive)
       (set-frame-parameter f 'fullscreen
@@ -156,7 +156,7 @@ In dired mode, visit all marked files using. Bound to the "F" key.
     Redefine TeX-open-quote and TeX-close-quote to be smart quotes by default. Below, in the local org-mode settings, we'll also map the relevant function to a key we can use in org-mode, too. If you don't use XeLaTeX for processing all your =.tex= files, you should disable this option.
 
 #+source: smart-quotes
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (setq TeX-open-quote "“")
   (setq TeX-close-quote "”")
 #+end_src
@@ -164,28 +164,31 @@ In dired mode, visit all marked files using. Bound to the "F" key.
 *** SyncTeX, PDF mode, Skim
 Set up AUCTeX to work with the Skim PDF viewer.
 
+I'm turning this bit of code off as I don't use a Mac (so no Skim).
 #+srcname: sync
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
     ;; Synctex with Skim
-    (add-hook 'TeX-mode-hook
-    (lambda ()
-    (add-to-list 'TeX-output-view-style
-    '("^pdf$" "."
-     "/Applications/Skim.app/Contents/SharedSupport/displayline %n %o %b")))
-     )
+    ;;(add-hook 'TeX-mode-hook
+    ;;(lambda ()
+    ;;(add-to-list 'TeX-output-view-style
+    ;;'("^pdf$" "."
+    ;; "/Applications/Skim.app/Contents/SharedSupport/displayline %n %o %b")))
+    ;; )
     
-  (setq TeX-view-program-selection '((output-pdf "PDF Viewer")))
-  (setq TeX-view-program-list
-       '(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
+  ;;(setq TeX-view-program-selection '((output-pdf "PDF Viewer")))
+  ;;(setq TeX-view-program-list
+  ;;     '(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
      
     ;; Make emacs aware of multi-file projects
     ;; (setq-default TeX-master nil)
     
     ;; Auto-raise Emacs on activation (from Skim, usually)
-    (defun raise-emacs-on-aqua()
-    (shell-command "osascript -e 'tell application \"Emacs\" to activate' &"))
-    (add-hook 'server-switch-hook 'raise-emacs-on-aqua)
+    ;;(defun raise-emacs-on-aqua()
+    ;;(shell-command "osascript -e 'tell application \"Emacs\" to activate' &"))
+    ;;(add-hook 'server-switch-hook 'raise-emacs-on-aqua)
 #+end_src
+
+#+RESULTS: sync
 
 *** Local RefTeX Settings
 Tell RefTeX where the bibliography files are. 
@@ -194,11 +197,11 @@ Tell RefTeX where the bibliography files are.
 #+begin_src emacs-lisp    
     ;; Make RefTex able to find my local bib files
     (setq reftex-bibpath-environment-variables
-    '("/Users/kjhealy/Library/texmf/bibtex/bib"))
+    '("~/bibfiles"))
 
     ;; Default bibliography
     (setq reftex-default-bibliography
-    '("/Users/kjhealy/Documents/bibs/socbib.bib"))
+    '("~/bibfiles"))
 #+end_src
 
 *** Local vc commands
@@ -208,7 +211,7 @@ Tell RefTeX where the bibliography files are.
     directory you're working in.
 
 #+srcname: vc-command
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
     (fset 'run-vc-then-xelatex
     [?\M-! ?v ?c return ?\C-c ?\C-c return])
     (global-set-key (kbd "C-c c") 'run-vc-then-xelatex);; Run the VC command before running xelatex
@@ -294,14 +297,14 @@ When in an org-mode buffer, bind TeX-insert-quote to =C-c "=. Turned off by defa
 *** Archive Settings
     Where archived projects and tasks go.
 #+source: orgmode-archive
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (setq org-archive-location "~/Dropbox/Org/archive.org::From %s")
 #+end_src
 
 *** Mobile Settings
    Sync orgmode files with Dropbox and iPhone. 
 #+src-name: orgmode-mobile
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
    ;; Set to the location of your Org files on your local system
    (setq org-directory "~/Dropbox/Org")
    ;; Set to <your Dropbox root directory>/MobileOrg.
@@ -481,10 +484,10 @@ When in an org-mode buffer, bind TeX-insert-quote to =C-c "=. Turned off by defa
 #+end_src
 
 *** HTML export Settings
-Create =html= files form the =org= sources, to help with documentation. To set up org-mode for publishing projects to HTML you will need to change these settings, as they apply only to the Starter Kit. 
+Create =html= files from the =org= sources, to help with documentation. To set up org-mode for publishing projects to HTML you will need to change these settings, as they apply only to the Starter Kit. 
 
 #+source: html-export-settings
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (setq org-publish-project-alist
          '(("org"
             :base-directory "~/.emacs.d/"
@@ -503,10 +506,175 @@ Create =html= files form the =org= sources, to help with documentation. To set u
   
 #+end_src
 
+** Local Mail Settings
+I use mu4e for reading mail. 
+
+*** Reading Mail 
+#+source:mu4e-configuration
+#+begin_src emacs-lisp
+;; the exact path may differ --- check it
+(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
+
+;; email setup
+(require 'mu4e)
+
+;; use mu4e for e-mail in emacs
+(setq mail-user-agent 'mu4e-user-agent)
+
+;; default
+;; (setq mu4e-maildir "~/Maildir")
+
+(setq mu4e-drafts-folder "/[Gmail].Drafts")
+(setq mu4e-sent-folder   "/[Gmail].Sent Mail")
+(setq mu4e-trash-folder  "/[Gmail].Trash")
+
+;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+(setq mu4e-sent-messages-behavior 'delete)
+
+;; (See the documentation for `mu4e-sent-messages-behavior' if you have
+;; additional non-Gmail addresses and want assign them different
+;; behavior.)
+
+;; setup some handy shortcuts
+;; you can quickly switch to your Inbox -- press ``ji''
+;; then, when you want archive some messages, move them to
+;; the 'All Mail' folder by pressing ``ma''.
+
+(setq mu4e-maildir-shortcuts
+    '( ("/INBOX"               . ?i)
+       ("/[Gmail].Sent Mail"   . ?s)
+       ("/[Gmail].Trash"       . ?t)
+       ("/[Gmail].All Mail"    . ?a)))
+
+;; allow for updating mail using 'U' in the main view:
+(setq mu4e-get-mail-command "offlineimap")
+
+#+end_src
+
+*** Sending Mail
+#+begin_src emacs-lisp 
+
+;; something about ourselves
+(setq
+   user-mail-address "john.lalor@nd.edu"
+   user-full-name  "John Lalor"
+   mu4e-compose-signature
+    (concat
+     "John Lalor\n"
+     "Assistant Professor of IT, Analytics, and Operations\n"
+     "Mendoza College of Business\n"
+     "University of Notre Dame\n"
+     "(574) 631-5104\n"
+      "http://www.nd.edu/~jlalor1\n"))
+
+;; sending mail -- replace USERNAME with your gmail username
+;; also, make sure the gnutls command line utils are installed
+;; package 'gnutls-bin' in Debian/Ubuntu
+
+(setq mu4e-compose-dont-reply-to-self t)
+;; spell check
+(add-hook 'mu4e-compose-mode-hook
+    (defun my-do-compose-stuff ()
+       "My settings for message composition."
+       (flyspell-mode)))
+
+(require 'smtpmail)
+;;(use-package auth-source-xoauth2
+;;  :ensure t)
+
+(setq message-send-mail-function 'smtpmail-send-it
+   starttls-use-gnutls t
+   smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+   smtpmail-auth-credentials
+     '(("smtp.gmail.com" 587 "jlalor1@nd.edu" nil))
+   smtpmail-stream-type 'starttls
+   smtpmail-default-smtp-server "smtp.gmail.com"
+   smtpmail-smtp-server "smtp.gmail.com"
+   smtpmail-smtp-service 587)
+
+;;(setq smtpmail-smtp-user "jlalor1@nd.edu")
+;;(setq auth-source-xoauth2-use-curl t)
+;;(setq smtpmail-debug-info t)
+;;(setq smtpmail-debug-verb t)
+
+
+;;(setq auth-source-xoauth2-creds '~/.authinfo.gpg)
+;;(add-to-list 'smtpmail-auth-supported 'xoauth2)
+;;(auth-source-xoauth2-enable)
+
+;; alternatively, for emacs-24 you can use:
+;;(setq message-send-mail-function 'smtpmail-send-it
+;;     smtpmail-stream-type 'starttls
+;;     smtpmail-default-smtp-server "smtp.gmail.com"
+;;     smtpmail-smtp-server "smtp.gmail.com"
+;;     smtpmail-smtp-service 587)
+
+;; don't keep message buffers around
+(setq message-kill-buffer-on-exit t)
+
+;; update mode line unread emails
+(add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)
+(add-hook 'mu4e-index-updated-hook 'mu4e~headers-do-auto-update)
+
+(setq mu4e-alert-interesting-mail-query
+    (concat
+     "flag:unread maildir:/INBOX"
+     ))
+
+#+end_src 
+** Local Elfeed Settings
+Elfeed is an RSS reader. 
+
+#+source: elfeed-configuration
+#+begin_src emacs-lisp
+(setq elfeed-db-directory "/mnt/c/Users/jlalor1/Dropbox/elfeeddb") 
+
+(defun lalor/elfeed-show-all ()
+  (interactive)
+  (bookmark-maybe-load-default-file)
+  (bookmark-jump "elfeed-all"))
+
+(defun lalor/elfeed-load-db-and-open ()
+  (interactive)
+  (elfeed)
+  (elfeed-db-load)
+  (elfeed-search-update--force)
+  (elfeed-update))
+
+(defun lalor/elfeed-save-db-and-bury ()
+  (interactive)
+  (elfeed-db-save)
+  (quit-window))
+
+
+(defun elfeed-mark-all-as-read ()
+(interactive)
+(mark-whole-buffer)
+(elfeed-search-untag-all-unread))
+
+
+(use-package elfeed
+:ensure t
+:bind (:map elfeed-search-mode-map
+("q" . lalor/elfeed-save-db-and-bury)
+("Q" . lalor/elfeed-save-db-and-bury)
+("m" . elfeed-toggle-star)
+("M" . elfeed-toggle-star)
+)
+)
+
+(use-package elfeed-org
+:ensure t
+:config
+(elfeed-org)
+(setq rmh-elfeed-org-files (list "/mnt/c/Users/jlalor1/Dropbox/org/elfeed.org")))
+;; (setq rmh-elfeed-org-files (list "~/org/elfeed.org")))
+
+#+end_src 
 ** IRC
 Sometimes useful for getting help on R or Emacs. 
 #+source: rirc-configuration
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no 
   ;; connect to irc on invocation but don't autojoin any channels
   (require 'rcirc)
   (add-to-list 'rcirc-server-alist

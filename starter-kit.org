@@ -12,7 +12,7 @@ The Emacs Starter Kit for the Social Sciences is maintained by [[http://kieranhe
 Healy]]. The original version was written by [[http://github.com/technomancy/emacs-starter-kit/tree][Phil Hagelberg]]. This
 version is more directly descended from [[http://eschulte.github.com/emacs-starter-kit/][Eric Schulte's]] excellent
 org-mode implementation. It is designed specifically for [[http://emacsformacosx.com/builds][GNU Emacs 24.4
-on Mac OS X]]. 
+on Mac OS X]]. This version has been updated by [[http://jplalor.github.io][John Lalor]] to work on GNU Emacs 26.
 
 The goal of this kit is to provide a more useful set of defaults than
 you get normally with Emacs. It's intended for beginners, but provides
@@ -27,7 +27,7 @@ The main advantage of this Emacs Starter Kit are
 - an organized directory structure
 - git provides for version control, backup, and sharing
 
-Source code for the latest version is at [[http://kjhealy.github.com/emacs-starter-kit/]]. 
+Source code for the latest version is at [[http://jplalor.github.com/emacs-starter-kit/]]. 
 
 ** Learning
    :PROPERTIES:
@@ -59,7 +59,7 @@ You have two choices.
 *0.1 Get Emacs*.  The starter kit requires at least Emacs 24.4 (released October 2014), and preferably the most recent released version. [[http://emacsformacosx.com][Download Emacs here]]. Alternatively, if you know what you're doing you may [[http://www.gnu.org/software/emacs/#Obtaining][compile it yourself]]. 
 
 
-*0.2 Install a Modern TeX Distribution and the Skim PDF reader*. If you are using OS X, [[http://tug.org/mactex/][download MacTeX]]  and install it. The kit is set up to use the [[skim-app.sourceforge.net/][Skim PDF reader]] to display PDF files created from =.tex= files. You can use other readers, but will need to modify the setup in the =starter-kit-latex.org= file.
+*0.2 Install a Modern TeX Distribution and the Skim PDF reader*. If you are using OS X, [[http://tug.org/mactex/][download MacTeX]]  and install it. The kit is set up to use the [[skim-app.sourceforge.net/][Skim PDF reader]] to display PDF files created from =.tex= files. You can use other readers, but will need to modify the setup in the =starter-kit-latex.org= file. If you are using a Linux distribution download [[https://www.tug.org/texlive/][TexLive.]]
 
 
 *0.3 Install R and Pandoc*. These are not strictly required for the installation to work, and you can skip this step if you like. But you will probably be using them anyway, if you're not already. If you're doing statistical work you will probably want to use R or Stata. R is free and you can [[http://www.r-project.org][download it here]]. Pandoc is a very useful utility that lets you convert easily between many different forms of plain-text markup (such as Markdown, HTML, LaTeX, and others). [[johnmacfarlane.net/pandoc/][Get Pandoc here]].
@@ -94,10 +94,10 @@ Alternatively, if you are using git (the preferred method), then clone the start
  git clone git://github.com/kjhealy/emacs-starter-kit ~/.emacs.d
 #+end_src
 
-*2.* Inside the file =kjhealy.org=, change the paths to any BibTeX databases as described at the top of that file.
+*2.* Inside the file =lalor.org=, change the paths to any BibTeX databases as described at the top of that file.
 
 
-*3.* Rename the starter kit's =kjhealy.org= file to that of =%your-username%.org= or =%your-systemname%.org=, based on the information you noted in 0.4 above. This is where you can add in any of your own further customizations to Emacs.
+*3.* Rename the starter kit's =lalor.org= file to that of =%your-username%.org= or =%your-systemname%.org=, based on the information you noted in 0.4 above. This is where you can add in any of your own further customizations to Emacs.
 
 
 *4.* Launch Emacs.
@@ -512,7 +512,7 @@ Frequently asked questions.
 
 Please share anything that you have come across which you think could
 be helpful, either in the form of a pull request, a patch, or just an
-email to me http://github.com/eschulte.
+email to http://github.com/eschulte.
 
 ** How do I use the starter kit without compiling org-mode?
 :PROPERTIES:
