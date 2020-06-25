@@ -518,6 +518,10 @@ I use mu4e for reading mail.
 ;; email setup
 (require 'mu4e)
 
+;;store link to messages for to-dos
+(require 'org-mu4e)
+(setq org-mu4e-link-query-in-headers-mode nil)
+
 ;; use mu4e for e-mail in emacs
 (setq mail-user-agent 'mu4e-user-agent)
 

@@ -24,12 +24,13 @@ Setting up org-agenda with some needed keybindings as well
 (global-set-key (kbd "C-c c") 'org-capture)
 (setq org-log-done t)
 
+
 (setq org-agenda-files (list "~/gtd/inbox.org"
 			     "~/gtd/gtd.org"
 			     "~/gtd/tickler.org"))
 (setq org-capture-templates '(("t" "Todo [inbox]" entry
                                (file+headline "~/gtd/inbox.org" "Tasks")
-                               "* TODO %i%?")
+                               "* TODO %i%?\n%a")
                               ("T" "Tickler" entry
                                (file+headline "~/gtd/inbox.org" "Tickler")
                                "* %i%? \n %U")))
