@@ -36,10 +36,10 @@
 
 ;; include use-package preamble
 ;; This is only needed once, near the top of the file
-(eval-when-compile
+;; (eval-when-compile
   ;; Following line is not needed if use-package.el is in ~/.emacs.d
   ;;(add-to-list 'load-path "")
-  (require 'use-package))
+  ;;(require 'use-package))
 
 
 ;; Font-face setup. Check the availability of a some default fonts, in
