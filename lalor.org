@@ -558,74 +558,75 @@ I use mu4e for reading mail.
 *** Sending Mail
 #+begin_src emacs-lisp 
 
-;; something about ourselves
-(setq
-   user-mail-address "john.lalor@nd.edu"
-   user-full-name  "John Lalor"
-   mu4e-compose-signature
-    (concat
-     "John Lalor\n"
-     "Assistant Professor of IT, Analytics, and Operations\n"
-     "Mendoza College of Business\n"
-     "University of Notre Dame\n"
-     "(574) 631-5104\n"
-      "http://www.nd.edu/~jlalor1\n"))
+  ;; something about ourselves
+  (setq
+     user-mail-address "john.lalor@nd.edu"
+     user-full-name  "John Lalor"
+     mu4e-compose-signature
+      (concat
+       "John Lalor\n"
+       "Assistant Professor of IT, Analytics, and Operations\n"
+       "Mendoza College of Business\n"
+       "University of Notre Dame\n"
+       "(574) 631-5104\n"
+        "http://www.nd.edu/~jlalor1\n"))
 
-;; sending mail -- replace USERNAME with your gmail username
-;; also, make sure the gnutls command line utils are installed
-;; package 'gnutls-bin' in Debian/Ubuntu
+  ;; sending mail -- replace USERNAME with your gmail username
+  ;; also, make sure the gnutls command line utils are installed
+  ;; package 'gnutls-bin' in Debian/Ubuntu
 
-(setq mu4e-compose-dont-reply-to-self t)
-;;(setq mu4e-compose-keep-self-cc f)
+  (setq mu4e-compose-dont-reply-to-self t)
+  ;;(setq mu4e-compose-keep-self-cc f)
 
-;; spell check
-(add-hook 'mu4e-compose-mode-hook
-    (defun my-do-compose-stuff ()
-       "My settings for message composition."
-       (flyspell-mode)))
+  ;; spell check
+  (add-hook 'mu4e-compose-mode-hook
+      (defun my-do-compose-stuff ()
+         "My settings for message composition."
+         (flyspell-mode)))
 
-(require 'smtpmail)
-;;(use-package auth-source-xoauth2
-;;  :ensure t)
+  (require 'smtpmail)
+  ;;(use-package auth-source-xoauth2
+  ;;  :ensure t)
 
-(setq message-send-mail-function 'smtpmail-send-it
-   starttls-use-gnutls t
-   smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-   smtpmail-auth-credentials
-     '(("smtp.gmail.com" 587 "jlalor1@nd.edu" nil))
-   smtpmail-stream-type 'starttls
-   smtpmail-default-smtp-server "smtp.gmail.com"
-   smtpmail-smtp-server "smtp.gmail.com"
-   smtpmail-smtp-service 587)
+  (setq message-send-mail-function 'smtpmail-send-it
+     starttls-use-gnutls t
+     smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+     smtpmail-auth-credentials
+       '(("smtp.gmail.com" 587 "jlalor1@nd.edu" nil))
+     smtpmail-stream-type 'starttls
+     smtpmail-default-smtp-server "smtp.gmail.com"
+     smtpmail-smtp-server "smtp.gmail.com"
+     smtpmail-smtp-service 587
+     smtpmail-smtp-user "jlalor1@nd.edu")
 
-;;(setq smtpmail-smtp-user "jlalor1@nd.edu")
-;;(setq auth-source-xoauth2-use-curl t)
-;;(setq smtpmail-debug-info t)
-;;(setq smtpmail-debug-verb t)
+  ;;(setq auth-source-xoauth2-creds '~/.passwd/smtp.hash)
+  ;;(add-to-list 'smtpmail-auth-supported 'xoauth2)
+  ;;(auth-source-xoauth2-enable)
+
+  ;;(setq auth-source-xoauth2-use-curl t)
+  ;;(setq smtpmail-debug-info t)
+  ;;(setq smtpmail-debug-verb t)
 
 
-;;(setq auth-source-xoauth2-creds '~/.authinfo.gpg)
-;;(add-to-list 'smtpmail-auth-supported 'xoauth2)
-;;(auth-source-xoauth2-enable)
 
-;; alternatively, for emacs-24 you can use:
-;;(setq message-send-mail-function 'smtpmail-send-it
-;;     smtpmail-stream-type 'starttls
-;;     smtpmail-default-smtp-server "smtp.gmail.com"
-;;     smtpmail-smtp-server "smtp.gmail.com"
-;;     smtpmail-smtp-service 587)
+  ;; alternatively, for emacs-24 you can use:
+  ;;(setq message-send-mail-function 'smtpmail-send-it
+  ;;     smtpmail-stream-type 'starttls
+  ;;     smtpmail-default-smtp-server "smtp.gmail.com"
+  ;;     smtpmail-smtp-server "smtp.gmail.com"
+  ;;     smtpmail-smtp-service 587)
 
-;; don't keep message buffers around
-(setq message-kill-buffer-on-exit t)
+  ;; don't keep message buffers around
+  (setq message-kill-buffer-on-exit t)
 
-;; update mode line unread emails
-(add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)
-(add-hook 'mu4e-index-updated-hook 'mu4e~headers-do-auto-update)
+  ;; update mode line unread emails
+  (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)
+  (add-hook 'mu4e-index-updated-hook 'mu4e~headers-do-auto-update)
 
-(setq mu4e-alert-interesting-mail-query
-    (concat
-     "flag:unread maildir:/INBOX"
-     ))
+  (setq mu4e-alert-interesting-mail-query
+      (concat
+       "flag:unread maildir:/INBOX"
+       ))
 
 #+end_src 
 ** Local Elfeed Settings
