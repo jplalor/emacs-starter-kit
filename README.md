@@ -102,7 +102,7 @@ rename it `.emacs.d`. Assuming the downloaded zip file is in your
 Alternatively, if you are using git (the preferred method), then clone
 the starter kit from github. Open a Terminal window and do this:
 
-    $ git clone git://github.com/kjhealy/emacs-starter-kit ~/.emacs.d
+    $ git clone git://github.com/jplalor/emacs-starter-kit ~/.emacs.d
 
 **2.** Inside the file `kjhealy.org`, change the paths to any BibTeX
 databases as described at the top of that file.
