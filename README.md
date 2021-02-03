@@ -104,10 +104,10 @@ the starter kit from github. Open a Terminal window and do this:
 
     $ git clone git://github.com/jplalor/emacs-starter-kit ~/.emacs.d
 
-**2.** Inside the file `kjhealy.org`, change the paths to any BibTeX
+**2.** Inside the file `lalor.org`, change the paths to any BibTeX
 databases as described at the top of that file.
 
-**3.** Rename the starter kit's `kjhealy.org` file to that of
+**3.** Rename the starter kit's `lalor.org` file to that of
 `%your-username%.org` or `%your-systemname%.org`, based on the
 information you noted in 0.4 above. This is where you can add in any of
 your own further customizations to Emacs.
