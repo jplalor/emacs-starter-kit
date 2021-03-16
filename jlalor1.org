@@ -506,6 +506,28 @@ Create =html= files from the =org= sources, to help with documentation. To set u
   
 #+end_src
 
+*** org-mode paper notes settings
+This will set up a workflow for reading papers and taking notes in org-mode. 
+Based on: https://www.reddit.com/r/emacs/comments/4gudyw/help_me_with_my_orgmode_workflow_for_notetaking/ (Alternate workflow). 
+
+#+source: org-mode-paper-notes
+#+begin_src emacs-lisp :tangle no
+(setq org-ref-notes-directory "~/org/references/notes"
+      org-ref-bibliography-notes "~/org/references/articles.org"
+      org-ref-default-bibliography '("~/org/references/articles.bib")
+      org-ref-pdf-directory "~/org/references/pdfs/")
+#+end_src
+
+
+Helm setup
+
+#+source: helm-paper-notes
+#+begin_src emacs-lisp :tangle no
+(setq helm-bibtex-bibliography "~/org/references/articles.bib"
+      helm-bibtex-library-path "~/org/references/pdfs"
+      helm-bibtex-notes-path "~/org/references/articles.org")
+#+end_src
+
 ** Local Mail Settings
 I use mu4e for reading mail. 
 
@@ -513,27 +535,27 @@ I use mu4e for reading mail.
 #+source:mu4e-configuration
 #+begin_src emacs-lisp
 ;; the exact path may differ --- check it
-(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
+;;(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
 
 ;; email setup
-(require 'mu4e)
+;;(require 'mu4e)
 
 ;;store link to messages for to-dos
-(require 'org-mu4e)
-(setq org-mu4e-link-query-in-headers-mode nil)
+;;(require 'org-mu4e)
+;;(setq org-mu4e-link-query-in-headers-mode nil)
 
 ;; use mu4e for e-mail in emacs
-(setq mail-user-agent 'mu4e-user-agent)
+;;(setq mail-user-agent 'mu4e-user-agent)
 
 ;; default
 ;; (setq mu4e-maildir "~/Maildir")
 
-(setq mu4e-drafts-folder "/[Gmail].Drafts")
-(setq mu4e-sent-folder   "/[Gmail].Sent Mail")
-(setq mu4e-trash-folder  "/[Gmail].Trash")
+;;(setq mu4e-drafts-folder "/[Gmail].Drafts")
+;;(setq mu4e-sent-folder   "/[Gmail].Sent Mail")
+;;(setq mu4e-trash-folder  "/[Gmail].Trash")
 
 ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
-(setq mu4e-sent-messages-behavior 'delete)
+;;(setq mu4e-sent-messages-behavior 'delete)
 
 ;; (See the documentation for `mu4e-sent-messages-behavior' if you have
 ;; additional non-Gmail addresses and want assign them different
@@ -544,14 +566,14 @@ I use mu4e for reading mail.
 ;; then, when you want archive some messages, move them to
 ;; the 'All Mail' folder by pressing ``ma''.
 
-(setq mu4e-maildir-shortcuts
-    '( ("/INBOX"               . ?i)
-       ("/[Gmail].Sent Mail"   . ?s)
-       ("/[Gmail].Trash"       . ?t)
-       ("/[Gmail].All Mail"    . ?a)))
+;;(setq mu4e-maildir-shortcuts
+;;    '( ("/INBOX"               . ?i)
+;;       ("/[Gmail].Sent Mail"   . ?s)
+;;       ("/[Gmail].Trash"       . ?t)
+;;       ("/[Gmail].All Mail"    . ?a)))
 
 ;; allow for updating mail using 'U' in the main view:
-(setq mu4e-get-mail-command "offlineimap")
+;;(setq mu4e-get-mail-command "offlineimap")
 
 #+end_src
 
@@ -634,7 +656,7 @@ Elfeed is an RSS reader.
 
 #+source: elfeed-configuration
 #+begin_src emacs-lisp
-(setq elfeed-db-directory "/mnt/c/Users/jlalor1/Dropbox/elfeeddb") 
+(setq elfeed-db-directory "~/org/elfeeddb") 
 
 (defun lalor/elfeed-show-all ()
   (interactive)
@@ -674,8 +696,11 @@ Elfeed is an RSS reader.
 :ensure t
 :config
 (elfeed-org)
-(setq rmh-elfeed-org-files (list "/mnt/c/Users/jlalor1/Dropbox/org/elfeed.org")))
+(setq rmh-elfeed-org-files (list "~/org/elfeed.org")))
 ;; (setq rmh-elfeed-org-files (list "~/org/elfeed.org")))
+
+(setq-default elfeed-search-filter "@2-week-ago +unread ")
+
 
 #+end_src 
 ** IRC

@@ -5,6 +5,13 @@
 ;; This is the first thing to get loaded.
 ;;
 
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+;;(package-initialize)
+
 (setq dotfiles-dir (file-name-directory (or (buffer-file-name) load-file-name)))
 (setq dotfiles-dir (file-name-directory (or load-file-name (buffer-file-name))))
 (setq autoload-file (concat dotfiles-dir "loaddefs.el"))
@@ -25,6 +32,10 @@
 ;; http://zpcat.blogspot.com/2013/08/configure-eshell-mode-after-upgrade.html
 (require 'esh-mode)
 
+;; workaround for gnu bug
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.2")
+(setq package-check-signature nil)
+
 ;; Package Locations
 (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
     (let* ((my-lisp-dir "~/.emacs.d/")
@@ -36,7 +47,7 @@
 
 ;; include use-package preamble
 ;; This is only needed once, near the top of the file
-;; (eval-when-compile
+;;(eval-when-compile
   ;; Following line is not needed if use-package.el is in ~/.emacs.d
   ;;(add-to-list 'load-path "")
   ;;(require 'use-package))
