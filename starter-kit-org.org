@@ -20,86 +20,88 @@ Setting up org-agenda with some needed keybindings as well
 *** Load agenda and set capture
 
 #+begin_src emacs-lisp
-    (global-set-key (kbd "C-c a") 'org-agenda)
-    (global-set-key (kbd "C-c c") 'org-capture)
-    (setq org-log-done t)
+        (global-set-key (kbd "C-c a") 'org-agenda)
+        (global-set-key (kbd "C-c c") 'org-capture)
+        (setq org-log-done t)
 
 
-    (setq org-agenda-files (list "~/gtd/inbox.org"
-                                 "~/gtd/gtd.org"
-                                 "~/gtd/tickler.org"))
-    (setq org-capture-templates '(("t" "Todo [inbox]" entry
-                                   (file+headline "~/gtd/inbox.org" "Tasks")
-                                   "* TODO %i%?\n%a")
-                                  ("T" "Tickler" entry
-                                   (file+headline "~/gtd/inbox.org" "Tickler")
-                                   "* %i%? \n %U")
-                                  ("a"   ; key
-                                   "Article"         ; name
-                                   entry             ; type
-                                   (file+headline "~/org/phd.org" "Article")  ; target
-                                   "* %^{Title} %(org-set-tags)  :article: \n:PROPERTIES:\n:Created: %U\n:Linked: %a\n:END:\n%i\nBrief description:\n%?"  ; template
-                                   :prepend t        ; properties
-                                   :empty-lines 1    ; properties
-                                   :created t        ; properties
-                                   )  
-    ))
+        (setq org-agenda-files (list "~/gtd/inbox.org"
+                                     "~/gtd/gtd.org"
+                                     "~/gtd/tickler.org"
+                                     "~/org/research.org"
+                                     "~/org/references/articles.org"))
+        (setq org-capture-templates '(("t" "Todo [inbox]" entry
+                                       (file+headline "~/gtd/inbox.org" "Tasks")
+                                       "* TODO %i%?\n%a")
+                                      ("T" "Tickler" entry
+                                       (file+headline "~/gtd/inbox.org" "Tickler")
+                                       "* %i%? \n %U")
+                                      ("a"   ; key
+                                       "Article"         ; name
+                                       entry             ; type
+                                       (file+headline "~/org/research.org" "Article")  ; target
+                                       "* %^{Title} %(org-set-tags)  :article: \n:PROPERTIES:\n:Created: %U\n:Linked: %a\n:END:\n%i\nBrief description:\n%?"  ; template
+                                       :prepend t        ; properties
+                                       :empty-lines 1    ; properties
+                                       :created t        ; properties
+                                       )  
+        ))
 
-    (setq org-refile-use-outline-path 'file)
-    (setq org-refile-targets '(("~/gtd/gtd.org" :maxlevel . 3)
-                               ("~/gtd/someday.org" :level . 1)
-                               ("~/gtd/tickler.org" :maxlevel . 2)))
+        (setq org-refile-use-outline-path 'file)
+        (setq org-refile-targets '(("~/gtd/gtd.org" :maxlevel . 3)
+                                   ("~/gtd/someday.org" :level . 1)
+                                   ("~/gtd/tickler.org" :maxlevel . 2)))
 
-    (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
+        (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
 
-    (setq org-agenda-custom-commands 
-          '(("R" "Research Work" tags-todo "research"
-             ((org-agenda-overriding-header "Research")
-              (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))))
-    (add-to-list 'org-agenda-custom-commands 
-          '("L" "Teaching" tags-todo "teaching"
-             ((org-agenda-overriding-header "Teaching")
-              (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first))))
-    (add-to-list 'org-agenda-custom-commands 
-          '("V" "Service" tags-todo "service"
-             ((org-agenda-overriding-header "Service")
-              (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first))))
-    (add-to-list 'org-agenda-custom-commands 
-          '("H" "Homework" tags-todo "home"
-             ((org-agenda-overriding-header "Homework")
-              (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first))))
+        (setq org-agenda-custom-commands 
+              '(("R" "Research Work" tags-todo "research"
+                 ((org-agenda-overriding-header "Research")
+                  (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))))
+        (add-to-list 'org-agenda-custom-commands 
+              '("L" "Teaching" tags-todo "teaching"
+                 ((org-agenda-overriding-header "Teaching")
+                  (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first))))
+        (add-to-list 'org-agenda-custom-commands 
+              '("V" "Service" tags-todo "service"
+                 ((org-agenda-overriding-header "Service")
+                  (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first))))
+        (add-to-list 'org-agenda-custom-commands 
+              '("H" "Homework" tags-todo "home"
+                 ((org-agenda-overriding-header "Homework")
+                  (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first))))
 
-    (add-to-list 'org-agenda-custom-commands
-                 '("W" "Weekly review"
-                   agenda ""
-                   ((org-agenda-span 'week)
-                    (org-agenda-start-on-weekday 0)
-                    (org-agenda-start-with-log-mode t)
-                    (org-agenda-skip-function
-                     '(org-agenda-skip-entry-if 'nottodo 'done))
-                    )))
+        (add-to-list 'org-agenda-custom-commands
+                     '("W" "Weekly review"
+                       agenda ""
+                       ((org-agenda-span 'week)
+                        (org-agenda-start-on-weekday 0)
+                        (org-agenda-start-with-log-mode t)
+                        (org-agenda-skip-function
+                         '(org-agenda-skip-entry-if 'nottodo 'done))
+                        )))
 
-    (add-to-list 'org-agenda-custom-commands 
-          '("E" "Emails to send" tags-todo "@email"
-             ((org-agenda-overriding-header "Email")
-              )))
+        (add-to-list 'org-agenda-custom-commands 
+              '("E" "Emails to send" tags-todo "@email"
+                 ((org-agenda-overriding-header "Email")
+                  )))
 
 
-    (defun my-org-agenda-skip-all-siblings-but-first ()
-      "Skip all but the first non-done entry."
-      (let (should-skip-entry)
-        (unless (org-current-is-todo)
-          (setq should-skip-entry t))
-        (save-excursion
-          (while (and (not should-skip-entry) (org-goto-sibling t))
-            (when (org-current-is-todo)
-              (setq should-skip-entry t))))
-        (when should-skip-entry
-          (or (outline-next-heading)
-              (goto-char (point-max))))))
+        (defun my-org-agenda-skip-all-siblings-but-first ()
+          "Skip all but the first non-done entry."
+          (let (should-skip-entry)
+            (unless (org-current-is-todo)
+              (setq should-skip-entry t))
+            (save-excursion
+              (while (and (not should-skip-entry) (org-goto-sibling t))
+                (when (org-current-is-todo)
+                  (setq should-skip-entry t))))
+            (when should-skip-entry
+              (or (outline-next-heading)
+                  (goto-char (point-max))))))
 
-    (defun org-current-is-todo ()
-      (string= "TODO" (org-get-todo-state)))
+        (defun org-current-is-todo ()
+          (string= "TODO" (org-get-todo-state)))
 #+end_src
 
 ** Exporter Settings and Helpful Packages
