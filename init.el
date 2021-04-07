@@ -33,7 +33,7 @@
 (require 'esh-mode)
 
 ;; workaround for gnu bug
-(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.2")
+;;(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.2")
 (setq package-check-signature nil)
 
 ;; Package Locations
